@@ -1,17 +1,14 @@
-import { StyleSheet, Text, View } from "react-native";
-import React from "react";
+
+import AuthForm from "@/components/AuthForm";
 import ScreenWrapper from "@/components/ScreenWrapper";
-import { Typo } from "@/components/Typo";
-import { Link } from "expo-router";
+
 
 const Register = () => {
   return (
     <ScreenWrapper>
-      <Typo>Register</Typo>
+      <AuthForm type="sign-up" />
     </ScreenWrapper>
   );
 };
 
 export default Register;
-
-const styles = StyleSheet.create({});

@@ -119,6 +119,7 @@ export type TransactionItemProps = {
 };
 
 export interface InputProps extends TextInputProps {
+  rightIcon: any;
   icon?: React.ReactNode;
   containerStyle?: ViewStyle;
   inputStyle?: TextStyle;
@@ -186,4 +187,12 @@ export type WalletType = {
   image: any;
   uid?: string;
   created?: Date;
+};
+// Definimos los tipos de usuario y las acciones
+export type User = {
+  id: string;
+  name: string;
+  email: string;
+  password?: string;
+  profileImage?: string;
 };

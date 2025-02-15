@@ -9,7 +9,7 @@ const SplashScreen = () => {
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      route.replace("/welcomen");
+      route.replace("/welcome");
     }, 3000);
 
     // Limpiar el timeout si el componente se desmonta
