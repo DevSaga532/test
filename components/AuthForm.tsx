@@ -10,7 +10,7 @@ import {
 import { Link, useRouter } from "expo-router";
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import * as Icons from "@expo/vector-icons"; // Cambio a vector-icons
+import * as Icons from "@expo/vector-icons";
 import Input from "@/components/Input";
 import { authFormSchema } from "@/constants";
 import { signIn, signUp } from "@/constants/user-action";
@@ -69,36 +69,36 @@ const AuthForm = ({ type }: { type: "sign-in" | "sign-up" }) => {
         showsVerticalScrollIndicator={false}
       >
         <View style={styles.container}>
-          <Typo
-            style={{ textAlign: "center", marginBottom: spacingY._20 }}
-            size={30}
-            fontWeight={"800"}
-          >
+          <Typo style={{ textAlign: "center", marginBottom: spacingY._20 }} size={30} fontWeight={"800"}>
             {type === "sign-in" ? "Login" : "Register"}
           </Typo>
 
-          {errorMessage ? (
-            <Typo color={colors.rose}>{errorMessage}</Typo>
-          ) : null}
+          {errorMessage ? <Typo color={colors.rose}>{errorMessage}</Typo> : null}
 
           <View style={styles.form}>
+            {type === "sign-up" && (
+              <Controller
+                control={control}
+                name="username"
+                render={({ field: { onChange, value } }) => (
+                  <Input
+                    icon={<Icons.MaterialCommunityIcons name="account" size={verticalScale(26)} color={colors.neutral300} />}
+                    placeholder="Username"
+                    value={value}
+                    onChangeText={onChange} rightIcon={undefined}                  />
+                )}
+              />
+            )}
+
             <Controller
               control={control}
               name="email"
               render={({ field: { onChange, value } }) => (
                 <Input
-                  icon={
-                    <Icons.MaterialCommunityIcons
-                      name="email"
-                      size={verticalScale(26)}
-                      color={colors.neutral300}
-                    />
-                  }
+                  icon={<Icons.MaterialCommunityIcons name="email" size={verticalScale(26)} color={colors.neutral300} />}
                   placeholder="Email"
                   value={value}
-                  onChangeText={onChange}
-                  rightIcon={undefined}
-                />
+                  onChangeText={onChange} rightIcon={undefined}                />
               )}
             />
 
@@ -107,72 +107,30 @@ const AuthForm = ({ type }: { type: "sign-in" | "sign-up" }) => {
               name="password"
               render={({ field: { onChange, value } }) => (
                 <Input
-                  icon={
-                    <Icons.MaterialCommunityIcons
-                      name="lock"
-                      size={verticalScale(26)}
-                      color={colors.neutral300}
-                    />
-                  }
+                  icon={<Icons.MaterialCommunityIcons name="lock" size={verticalScale(26)} color={colors.neutral300} />}
                   placeholder="Password"
                   secureTextEntry={!showPassword}
                   value={value}
                   onChangeText={onChange}
                   rightIcon={
-                    <TouchableOpacity
-                      onPress={() => setShowPassword(!showPassword)}
-                    >
-                      <Icons.MaterialCommunityIcons
-                        name={showPassword ? "eye" : "eye-off"}
-                        size={verticalScale(26)}
-                        color={colors.neutral300}
-                      />
+                    <TouchableOpacity onPress={() => setShowPassword(!showPassword)}>
+                      <Icons.MaterialCommunityIcons name={showPassword ? "eye" : "eye-off"} size={verticalScale(26)} color={colors.neutral300} />
                     </TouchableOpacity>
                   }
                 />
               )}
             />
-
-            <TouchableOpacity onPress={() => router.push("/(auth)/forgot")}>
-              <Typo
-                size={14}
-                color={colors.primary}
-                style={{ textAlign: "right" }}
-              >
-                Se me olvidó la contraseña
-              </Typo>
-            </TouchableOpacity>
           </View>
 
           <Button onPress={handleSubmit(onSubmit)} loading={isLoading}>
-            <Typo size={18} fontWeight={"600"}>
-              {type === "sign-in" ? "Sign In" : "Sign Up"}
-            </Typo>
+            <Typo size={18} fontWeight={"600"}>{type === "sign-in" ? "Sign In" : "Sign Up"}</Typo>
           </Button>
 
-          <View style={styles.socialButtons}>
-            <TouchableOpacity style={styles.socialButton}>
-              <Icons.FontAwesome name="google" size={30} color={colors.rose} />
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.socialButton}>
-              <Icons.FontAwesome
-                name="apple"
-                size={30}
-                color={colors.neutral900}
-              />
-            </TouchableOpacity>
-          </View>
-          {/* Footer - Cambia el enlace según el estado */}
           <View style={styles.footer}>
             <Typo size={14} color={colors.text}>
-              {type === "sign-in"
-                ? "Don't have an account?"
-                : "Already have an account?"}
+              {type === "sign-in" ? "Don't have an account?" : "Already have an account?"}
             </Typo>
-            <Link
-              href={type === "sign-in" ? "/register" : "/login"}
-              style={styles.footerText}
-            >
+            <Link href={type === "sign-in" ? "/register" : "/login"} style={styles.footerText}>
               <Typo fontWeight={"700"} size={15} color={colors.primary}>
                 {type === "sign-in" ? "Register" : "Login"}
               </Typo>
@@ -198,21 +156,6 @@ const styles = StyleSheet.create({
   },
   form: {
     gap: spacingY._20,
-  },
-  socialButtons: {
-    flexDirection: "row",
-    justifyContent: "center",
-    gap: spacingX._20,
-    marginTop: spacingY._20,
-  },
-  socialButton: {
-    width: 50,
-    height: 50,
-    borderRadius: 100,
-    backgroundColor: colors.neutral100,
-    justifyContent: "center",
-    alignItems: "center",
-    elevation: 3,
   },
   footer: {
     flexDirection: "row",
