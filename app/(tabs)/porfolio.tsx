@@ -1,16 +1,16 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
-import ScreenWrapper from "@/components/ScreenWrapper";
 import { Typo } from "@/components/Typo";
+import ScreenWrapper from "@/components/ScreenWrapper";
 
-const Home = () => {
+const Porfolio = () => {
   return (
     <ScreenWrapper>
-      <Typo size={20}>Home </Typo>
+      <Typo size={20}>Porfolio </Typo>
     </ScreenWrapper>
   );
 };
 
-export default Home;
+export default Porfolio;
 
 const styles = StyleSheet.create({});

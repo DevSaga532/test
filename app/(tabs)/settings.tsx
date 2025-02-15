@@ -1,16 +1,16 @@
 import { StyleSheet, Text, View } from "react-native";
-import React from "react";
+
 import ScreenWrapper from "@/components/ScreenWrapper";
 import { Typo } from "@/components/Typo";
 
-const Home = () => {
+const Settings = () => {
   return (
     <ScreenWrapper>
-      <Typo size={20}>Home </Typo>
+      <Typo size={20}>Settings</Typo>
     </ScreenWrapper>
   );
 };
 
-export default Home;
+export default Settings;
 
 const styles = StyleSheet.create({});

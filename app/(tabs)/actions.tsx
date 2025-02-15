@@ -3,14 +3,14 @@ import React from "react";
 import ScreenWrapper from "@/components/ScreenWrapper";
 import { Typo } from "@/components/Typo";
 
-const Home = () => {
+const Explore = () => {
   return (
     <ScreenWrapper>
-      <Typo size={20}>Home </Typo>
+      <Typo size={20}>Explore </Typo>
     </ScreenWrapper>
   );
 };
 
-export default Home;
+export default Explore;
 
 const styles = StyleSheet.create({});

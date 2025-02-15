@@ -133,7 +133,7 @@ const AuthForm = ({ type }: { type: "sign-in" | "sign-up" }) => {
               )}
             />
 
-            <TouchableOpacity onPress={() => router.push("/")}>
+            <TouchableOpacity onPress={() => router.push("/(tabs)")}>
               <Typo
                 size={14}
                 color={colors.primary}

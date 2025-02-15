@@ -1,12 +1,17 @@
+import TabBar from "@/components/ui/TabBar";
 import { Tabs } from "expo-router";
 
 const TabsLayout = () => {
   return (
-    <Tabs screenOptions={{ headerShown: false }}>
+    <Tabs 
+     tabBar={(props) => <TabBar {...props} />}
+    
+    screenOptions={{ headerShown: false }}>
       <Tabs.Screen name="index" />
-      <Tabs.Screen name="intercambio" />
-      <Tabs.Screen name="earn" />
-      <Tabs.Screen name="explore" />
+      <Tabs.Screen name="porfolio" />
+      <Tabs.Screen name="actions" />
+      <Tabs.Screen name="prices" />
+      <Tabs.Screen name="settings" />
     </Tabs>
   );
 };
