@@ -7,7 +7,6 @@ import {
   signInWithEmailAndPassword,
   signOut,
 } from "firebase/auth";
-
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import { auth, firestore } from "@/util/firebase";
 
