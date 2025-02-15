@@ -10,8 +10,7 @@ import {
 import { Link, useRouter } from "expo-router";
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import * as Icons from "phosphor-react-native";
-
+import * as Icons from "@expo/vector-icons"; // Cambio a vector-icons
 import Input from "@/components/Input";
 import { authFormSchema } from "@/constants";
 import { signIn, signUp } from "@/constants/user-action";
@@ -24,7 +23,7 @@ const AuthForm = ({ type }: { type: "sign-in" | "sign-up" }) => {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
-  const [showPassword, setShowPassword] = useState(false); // Estado para la visibilidad de la contraseña
+  const [showPassword, setShowPassword] = useState(false);
 
   const formSchema = authFormSchema(type);
   const {
@@ -70,64 +69,27 @@ const AuthForm = ({ type }: { type: "sign-in" | "sign-up" }) => {
         showsVerticalScrollIndicator={false}
       >
         <View style={styles.container}>
-          <View style={{ gap: 5, marginTop: spacingY._20 }}>
-            <Typo
-              style={{ textAlign: "center", marginBottom: spacingY._20 }}
-              size={30}
-              fontWeight={"800"}
-            >
-              {type === "sign-in" ? "Login" : "Register"}
-            </Typo>
-          </View>
+          <Typo
+            style={{ textAlign: "center", marginBottom: spacingY._20 }}
+            size={30}
+            fontWeight={"800"}
+          >
+            {type === "sign-in" ? "Login" : "Register"}
+          </Typo>
 
           {errorMessage ? (
             <Typo color={colors.rose}>{errorMessage}</Typo>
           ) : null}
 
           <View style={styles.form}>
-            <Typo
-              style={{ marginTop: spacingY._10 }}
-              size={16}
-              color={colors.textLight}
-              fontWeight={"500"}
-            >
-              {type === "sign-in"
-                ? "Welcome Back"
-                : "Create an account to Wallet Exchange"}
-            </Typo>
-
-            {/* Input Username SOLO en Sign Up */}
-            {type === "sign-up" && (
-              <Controller
-                control={control}
-                name="username"
-                render={({ field: { onChange, value } }) => (
-                  <Input
-                    icon={
-                      <Icons.User
-                        weight="fill"
-                        size={verticalScale(26)}
-                        color={colors.neutral300}
-                      />
-                    }
-                    placeholder="Username"
-                    value={value}
-                    onChangeText={onChange}
-                    rightIcon={undefined}
-                  />
-                )}
-              />
-            )}
-
-            {/* Input Email */}
             <Controller
               control={control}
               name="email"
               render={({ field: { onChange, value } }) => (
                 <Input
                   icon={
-                    <Icons.At
-                      weight="fill"
+                    <Icons.MaterialCommunityIcons
+                      name="email"
                       size={verticalScale(26)}
                       color={colors.neutral300}
                     />
@@ -140,15 +102,14 @@ const AuthForm = ({ type }: { type: "sign-in" | "sign-up" }) => {
               )}
             />
 
-            {/* Input Password con opción de ver/ocultar */}
             <Controller
               control={control}
               name="password"
               render={({ field: { onChange, value } }) => (
                 <Input
                   icon={
-                    <Icons.Lock
-                      weight="fill"
+                    <Icons.MaterialCommunityIcons
+                      name="lock"
                       size={verticalScale(26)}
                       color={colors.neutral300}
                     />
@@ -161,24 +122,26 @@ const AuthForm = ({ type }: { type: "sign-in" | "sign-up" }) => {
                     <TouchableOpacity
                       onPress={() => setShowPassword(!showPassword)}
                     >
-                      {showPassword ? (
-                        <Icons.Eye
-                          weight="fill"
-                          size={verticalScale(26)}
-                          color={colors.neutral300}
-                        />
-                      ) : (
-                        <Icons.EyeSlash
-                          weight="fill"
-                          size={verticalScale(26)}
-                          color={colors.neutral300}
-                        />
-                      )}
+                      <Icons.MaterialCommunityIcons
+                        name={showPassword ? "eye" : "eye-off"}
+                        size={verticalScale(26)}
+                        color={colors.neutral300}
+                      />
                     </TouchableOpacity>
                   }
                 />
               )}
             />
+
+            <TouchableOpacity onPress={() => router.push("/")}>
+              <Typo
+                size={14}
+                color={colors.primary}
+                style={{ textAlign: "right" }}
+              >
+                Se me olvidó la contraseña
+              </Typo>
+            </TouchableOpacity>
           </View>
 
           <Button onPress={handleSubmit(onSubmit)} loading={isLoading}>
@@ -187,6 +150,18 @@ const AuthForm = ({ type }: { type: "sign-in" | "sign-up" }) => {
             </Typo>
           </Button>
 
+          <View style={styles.socialButtons}>
+            <TouchableOpacity style={styles.socialButton}>
+              <Icons.FontAwesome name="google" size={30} color={colors.rose} />
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.socialButton}>
+              <Icons.FontAwesome
+                name="apple"
+                size={30}
+                color={colors.neutral900}
+              />
+            </TouchableOpacity>
+          </View>
           {/* Footer - Cambia el enlace según el estado */}
           <View style={styles.footer}>
             <Typo size={14} color={colors.text}>
@@ -223,6 +198,21 @@ const styles = StyleSheet.create({
   },
   form: {
     gap: spacingY._20,
+  },
+  socialButtons: {
+    flexDirection: "row",
+    justifyContent: "center",
+    gap: spacingX._20,
+    marginTop: spacingY._20,
+  },
+  socialButton: {
+    width: 50,
+    height: 50,
+    borderRadius: 100,
+    backgroundColor: colors.neutral100,
+    justifyContent: "center",
+    alignItems: "center",
+    elevation: 3,
   },
   footer: {
     flexDirection: "row",
