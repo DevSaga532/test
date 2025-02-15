@@ -3,17 +3,17 @@ import Animated, { FadeIn, FadeInDown } from "react-native-reanimated";
 import ScreenWrapper from "@/components/ScreenWrapper";
 import { Typo } from "@/components/Typo";
 import { colors, spacingX, spacingY } from "@/constants/theme";
-
 import { useRouter } from "expo-router";
 import { Button } from "@/components/Button";
 import { verticalScale } from "@/types/styling";
 import { icons } from "@/constants/icons";
+import { Ionicons } from "@expo/vector-icons";
 
 const Welcome = () => {
   const router = useRouter();
 
-  const handleLogin = () => {
-    router.push("/(auth)/login");
+  const FormCont = () => {
+    router.push("/form");
   };
 
   const handleRegister = () => {
@@ -26,16 +26,20 @@ const Welcome = () => {
         {/* Login Button & Image */}
         <View>
           <TouchableOpacity
-            onPress={handleLogin}
+            onPress={FormCont}
             activeOpacity={0.7}
             style={styles.loginButton}
             accessibilityLabel="Iniciar sesión"
             accessibilityHint="Toca para iniciar sesión en tu cuenta"
           >
-            <Typo fontWeight={"500"}>Sign In</Typo>
+            <Ionicons
+              name="logo-skype"
+              size={verticalScale(30)}
+              color={colors.neutral500}
+            />
           </TouchableOpacity>
           <Animated.Image
-            entering={FadeIn.duration(2000)}
+            entering={FadeIn.duration(3000)}
             resizeMode="contain"
             source={icons.logo}
             style={styles.welcomeImage} // Corregido el nombre
@@ -45,14 +49,14 @@ const Welcome = () => {
         {/* Footer */}
         <View style={styles.footer}>
           <Animated.View
-            entering={FadeInDown.duration(1000).springify().damping(12)}
+            entering={FadeInDown.duration(1000).springify().damping(14)}
             style={{ alignItems: "center" }}
           >
             <Typo fontWeight={"800"} size={30}>
-              Alway take control
+              Master Your Wealth
             </Typo>
             <Typo fontWeight={"600"} size={20}>
-              of your finances
+              Seize Control of Your
             </Typo>
           </Animated.View>
 
@@ -63,15 +67,15 @@ const Welcome = () => {
               .damping(12)}
             style={{
               alignItems: "center",
-              marginVertical: 2,
+              marginVertical: 5,
               marginTop: spacingY._10,
             }} // Cambiado gap por marginVertical
           >
             <Typo size={17} color={colors.textLight}>
-              Finances must be arranged to set a better
+              Cryptocurrencies and
             </Typo>
             <Typo size={17} color={colors.textLight}>
-              lifestyle in future
+              Navigate the Crypto World!
             </Typo>
           </Animated.View>
 
@@ -87,7 +91,7 @@ const Welcome = () => {
               style={{ marginTop: spacingY._20 }}
               onPress={handleRegister}
             >
-              <Typo fontWeight={"600"} size={22} color={colors.neutral900}>
+              <Typo fontWeight={"600"} size={22} color={colors.neutral600}>
                 Get Started
               </Typo>
             </Button>
@@ -120,19 +124,19 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingTop: verticalScale(30),
     paddingBottom: verticalScale(45),
-    marginVertical: spacingY._20, // Cambiado gap por marginVertical
+    marginVertical: spacingY._30, // Cambiado gap por marginVertical
     shadowColor: "white",
     shadowOffset: {
       width: 0,
-      height: -10,
+      height: -15,
     },
     borderRadius: 40,
-    shadowOpacity: 0.15,
+    shadowOpacity: 0.17,
     shadowRadius: 25,
     elevation: 10,
   },
   buttonContainer: {
-    width: "100%",
+    width: "80%",
     paddingHorizontal: spacingX._25,
   },
 });
