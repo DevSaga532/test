@@ -22,6 +22,8 @@ export type CryptoData = {
   change: string;
   volume: string;
   marketCap: string;
+  priceSmall: string
+  
 };
 
 

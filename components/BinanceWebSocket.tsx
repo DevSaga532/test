@@ -5,6 +5,7 @@ import { verticalScale } from "@/types/styling";
 import { colors, radius, spacingX, spacingY } from "@/constants/theme";
 import Animated, { FadeInDown } from "react-native-reanimated";
 import { Typo } from "./Typo";
+import { router } from "expo-router";
 
 type CryptoData = {
   symbol: string;
@@ -12,6 +13,7 @@ type CryptoData = {
   change: string;
   volume: string;
   marketCap: string;
+  priceSmall: string;
 };
 
 const BinanceWebSocket: React.FC = () => {
@@ -39,11 +41,12 @@ const BinanceWebSocket: React.FC = () => {
 
     return () => ws.close();
   }, []);
+  
 
   return (
     <Animated.View entering={FadeInDown.delay(100).springify().damping(14)}>
       <TouchableOpacity
-        onPress={() => console.log("selectedCrypto", selectedCrypto)}
+        onPress={() =>console.log("pressed")}
         activeOpacity={0.7}
         style={styles.row}
       >
@@ -55,8 +58,8 @@ const BinanceWebSocket: React.FC = () => {
           <WebsokeList
             data={cryptoData}
             onSelect={(item) => {
-              setSelectedCrypto(item as CryptoData);
-              setModalVisible(true);
+              setSelectedCrypto(item  as CryptoData);
+              
             }}
           />
         </View>

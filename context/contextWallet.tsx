@@ -1,11 +1,11 @@
 import { createOrUpdateWallet } from "@/services/walletService";
 import React, { createContext, useContext, useState } from "react";
 
-
 // Definir el tipo del contexto
 interface WalletContextType {
   balance: number;
   deposit: (amount: number) => Promise<void>;
+  withdraw: (amount: number) => Promise<void>;
 }
 
 // Crear el contexto
@@ -27,12 +27,28 @@ export const WalletProvider: React.FC<{ children: React.ReactNode }> = ({ childr
       console.error("Error en la transacción:", error);
     }
   };
+
   // Función para realizar el retiro
-   
-  
+  const withdraw = async (amount: number) => {
+    try {
+      if (amount > balance) {
+        console.error("Fondos insuficientes");
+        return;
+      }
+
+      const response = await createOrUpdateWallet({ amount: -amount }); // Se envía un valor negativo para retirar
+      if (response.success) {
+        setBalance(prevBalance => prevBalance - amount);
+      } else {
+        console.error("Error en el retiro:", response.msg);
+      }
+    } catch (error) {
+      console.error("Error en la transacción:", error);
+    }
+  };
 
   return (
-    <WalletContext.Provider value={{ balance, deposit }}>
+    <WalletContext.Provider value={{ balance, deposit, withdraw }}>
       {children}
     </WalletContext.Provider>
   );

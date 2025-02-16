@@ -5,7 +5,8 @@ import { colors, spacingX, spacingY } from "@/constants/theme";
 import { img } from "@/constants/img";
 import { scale, verticalScale } from "@/types/styling";
 import { useRouter } from "expo-router";
-import { useWallet } from "@/context/WalletContext";
+import { useWallet } from "@/context/contextWallet";
+
 
 export const HomeCards = () => {
   const { balance, deposit } = useWallet();

@@ -1,6 +1,5 @@
 import { radius } from "@/constants/theme";
 import { verticalScale } from "@/types/styling";
-import React from "react";
 import { View, TouchableOpacity, StyleSheet } from "react-native";
 import { Typo } from "./Typo";
 
@@ -9,10 +8,12 @@ type CryptoData = {
   price: string;
   priceSmall: string;
   change: string;
+
 };
 
 type Props = {
   item: CryptoData;
+
   onPress: () => void;
 };
 

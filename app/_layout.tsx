@@ -1,5 +1,8 @@
 import { AuthProvider } from "@/context/authContext";
-import { WalletProvider } from "@/context/WalletContext";
+import { WalletProvider } from "@/context/contextWallet";
+
+
+
 
 import { Stack } from "expo-router";
 

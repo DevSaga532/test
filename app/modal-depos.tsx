@@ -1,8 +1,8 @@
-import { StyleSheet, Text, View, Modal } from "react-native";
-import React from "react";
-import { useWallet } from "@/context/WalletContext";
+import { StyleSheet } from "react-native";
+
 import ScreenWrapper from "@/components/ScreenWrapper";
 import { Typo } from "@/components/Typo";
+import { useWallet } from "@/context/contextWallet";
 
 const ModalDepos = () => {
   const { deposit, balance } = useWallet();
