@@ -182,6 +182,8 @@ export type WalletType = {
   id?: string;
   name: string;
   amount?: number;
+  balance ?: number;
+  deposit ?: number;
   totalIncome?: number;
   totalExpenses?: number;
   image: any;

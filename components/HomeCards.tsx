@@ -1,20 +1,17 @@
-import {
-  ImageBackground,
-  Pressable,
-  StyleSheet,
-  Text,
-  View,
-} from "react-native";
+import { ImageBackground, Pressable, StyleSheet, View } from "react-native";
 import * as Icons from "phosphor-react-native";
 import { Typo } from "./Typo";
-
 import { colors, spacingX, spacingY } from "@/constants/theme";
 import { img } from "@/constants/img";
 import { scale, verticalScale } from "@/types/styling";
+import { useRouter } from "expo-router";
+import { useWallet } from "@/context/WalletContext";
 
 export const HomeCards = () => {
-  const handledArrowDown = () => {
-    console.log("Pressed down");
+  const { balance, deposit } = useWallet();
+  const route = useRouter();
+  const handledDeposit = () => {
+    route.push("/modal-depos");
   };
   const handledArrowUp = () => {
     console.log("Pressed up");
@@ -39,17 +36,20 @@ export const HomeCards = () => {
               weight="fill"
             />
           </View>
-          <Typo 
-          style={{ marginTop: verticalScale(5) }}
-          color={colors.black} size={30} fontWeight={"bold"}>
-            $563283.00
+          <Typo
+            style={{ marginTop: verticalScale(5) }}
+            color={colors.black}
+            size={30}
+            fontWeight={"bold"}
+          >
+            $ {balance}
           </Typo>
         </View>
         {/* total  expenses and icome */}
         <View style={styles.stats}>
           {/* income */}
           <View style={{ gap: verticalScale(5) }}>
-            <Pressable onPress={handledArrowDown} style={styles.incomeExpense}>
+            <Pressable onPress={handledDeposit} style={styles.incomeExpense}>
               <View style={styles.statsIcons}>
                 <Icons.ArrowDown
                   size={verticalScale(15)}
@@ -79,7 +79,7 @@ export const HomeCards = () => {
                 />
               </View>
               <Typo fontWeight={"500"} color={colors.neutral700} size={17}>
-               Withdraw 
+                Withdraw
               </Typo>
             </Pressable>
             <View style={{ alignSelf: "center" }}>
