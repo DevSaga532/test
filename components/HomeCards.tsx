@@ -99,6 +99,7 @@ const styles = StyleSheet.create({
   bgImage: {
     height: scale(200),
     width: "100%",
+    marginTop: spacingY._20,
   },
   container: {
     height: "85%",

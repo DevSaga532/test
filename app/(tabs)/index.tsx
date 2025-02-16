@@ -1,4 +1,5 @@
 import {
+  FlatList,
   Pressable,
   ScrollView,
   StyleSheet,
@@ -15,91 +16,102 @@ import { Ionicons } from "@expo/vector-icons";
 import { useState } from "react";
 import { HomeCards } from "@/components/HomeCards";
 import RefreshControl from "@/components/RefreshControl";
+import BinanceWebSocket from "@/components/BinanceWebSocket";
 
 const Home = () => {
   const { user } = useAuth();
   const [refreshing, setRefreshing] = useState(false);
-  const [notificationCount, setNotificationCount] = useState(3); // Número de notificaciones de ejemplo
+  const [notificationCount, setNotificationCount] = useState(3);
 
   const onRefresh = () => {
     setRefreshing(true);
     setTimeout(() => {
       setRefreshing(false);
-    }, 2000); 
+    }, 2000);
   };
+
   return (
     <ScreenWrapper>
-      <ScrollView
+      <FlatList
+        data={[]} // Aquí puedes agregar una lista vacía o datos ficticios si lo necesitas
+        keyExtractor={(item, index) => index.toString()}
+        renderItem={() => null} // Agrega renderItem para evitar el error
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }
-        contentContainerStyle={styles.scrollViewStyle}
         showsVerticalScrollIndicator={false}
-      >
-        <View style={styles.containerSearch}>
-          {/* Avatar */}
-          <Pressable
-            onPress={() => console.log("Shortcut")}
-            style={styles.pressedImage}
-          >
-            <Image style={styles.icons} source={icons.defaultAvatar} />
-          </Pressable>
-          {/* Barra de búsqueda */}
-          <View style={styles.searchContainer}>
-            <Text style={styles.fireIcon}>🔥</Text>
-            <TextInput
-              style={styles.searchInput}
-              placeholder="BURGER"
-              placeholderTextColor={colors.neutral400}
-            />
-            <Pressable onPress={() => console.log("search")}>
-              <Ionicons
-                name="search"
-                size={20}
-                color={colors.neutral300}
-                style={styles.searchIcon}
-              />
-            </Pressable>
-          </View>
-          {/* Icono de notificaciones con contador */}
-          <Pressable
-            style={styles.notificationContainer}
-            onPress={() => console.log("notifications")}
-          >
-            <Ionicons
-              name="notifications"
-              size={20}
-              color={colors.neutral300}
-            />
-            {notificationCount > 0 && (
-              <View style={styles.notificationBadge}>
-                <Text style={styles.notificationText}>{notificationCount}</Text>
+        ListHeaderComponent={
+          <>
+            <View style={styles.containerSearch}>
+              {/* Avatar */}
+              <Pressable
+                onPress={() => console.log("Shortcut")}
+                style={styles.pressedImage}
+              >
+                <Image style={styles.icons} source={icons.defaultAvatar} />
+              </Pressable>
+              {/* Barra de búsqueda */}
+              <View style={styles.searchContainer}>
+                <Text style={styles.fireIcon}>🔥</Text>
+                <TextInput
+                  style={styles.searchInput}
+                  placeholder="BURGER"
+                  placeholderTextColor={colors.neutral400}
+                />
+                <Pressable onPress={() => console.log("search")}>
+                  <Ionicons
+                    name="search"
+                    size={20}
+                    color={colors.neutral300}
+                    style={styles.searchIcon}
+                  />
+                </Pressable>
               </View>
-            )}
-          </Pressable>
-          {/* Opciones */}
-          <View style={styles.optionContainer}>
-            <Pressable
-              style={styles.optionSeparator}
-              onPress={() => console.log("help")}
-            >
-              <Ionicons name="time" size={20} color={colors.neutral300} />
-            </Pressable>
-            <Pressable
-              style={styles.optionSeparator}
-              onPress={() => console.log("settings")}
-            >
-              <Ionicons name="settings" size={20} color={colors.neutral300} />
-            </Pressable>
-          </View>
-        </View>
-        {/* Cards */}
-
-        <View>
-          <HomeCards />
-        </View>
-      </ScrollView>
-      {/* Listado de transacciones */}
+              {/* Notificaciones */}
+              <Pressable
+                style={styles.notificationContainer}
+                onPress={() => console.log("notifications")}
+              >
+                <Ionicons
+                  name="notifications"
+                  size={20}
+                  color={colors.neutral300}
+                />
+                {notificationCount > 0 && (
+                  <View style={styles.notificationBadge}>
+                    <Text style={styles.notificationText}>
+                      {notificationCount}
+                    </Text>
+                  </View>
+                )}
+              </Pressable>
+              {/* Opciones */}
+              <View style={styles.optionContainer}>
+                <Pressable
+                  style={styles.optionSeparator}
+                  onPress={() => console.log("help")}
+                >
+                  <Ionicons name="time" size={20} color={colors.neutral300} />
+                </Pressable>
+                <Pressable
+                  style={styles.optionSeparator}
+                  onPress={() => console.log("settings")}
+                >
+                  <Ionicons
+                    name="settings"
+                    size={20}
+                    color={colors.neutral300}
+                  />
+                </Pressable>
+              </View>
+            </View>
+            {/* Cards */}
+            <HomeCards />
+            <View style={{ height: spacingY._20 }} />
+            <BinanceWebSocket />
+          </>
+        }
+      />
     </ScreenWrapper>
   );
 };
