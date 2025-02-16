@@ -27,6 +27,9 @@ export const WalletProvider: React.FC<{ children: React.ReactNode }> = ({ childr
       console.error("Error en la transacción:", error);
     }
   };
+  // Función para realizar el retiro
+   
+  
 
   return (
     <WalletContext.Provider value={{ balance, deposit }}>

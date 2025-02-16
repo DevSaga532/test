@@ -181,6 +181,7 @@ export type ResponseType = {
 export type WalletType = {
   id?: string;
   name: string;
+  withdrawals?: number;
   amount?: number;
   balance ?: number;
   deposit ?: number;
